@@ -3,9 +3,6 @@
 Indie game development managed through coordinated AI subagents.
 Each agent owns a specific domain, enforcing separation of concerns and quality.
 
-> This is the Claude Code entry point. For other AI tools, see `AGENTS.md`
-> (universal) or the tool-specific config files in the project root.
-
 ## Technology Stack
 
 - **Engine**: [CHOOSE: Godot 4 / Unity / Unreal Engine 5]

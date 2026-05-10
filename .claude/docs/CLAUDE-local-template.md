@@ -1,4 +1,8 @@
-# CLAUDE.local.md Template
+# AI Game Studios -- Personal Preferences Template
+
+Copy this file to the project root as `AGENTS.local.md` for personal overrides
+(gitignored, not committed). For Claude Code specifically, you can also use
+`CLAUDE.local.md`.
 
 Copy this file to the project root as `CLAUDE.local.md` for personal overrides.
 This file is gitignored and will not be committed.
@@ -32,6 +36,7 @@ This file is gitignored and will not be committed.
 
 ## Setup
 
-1. Copy this template to your project root: `cp .claude/docs/CLAUDE-local-template.md CLAUDE.local.md`
+1. Copy this template to your project root: `cp .claude/docs/CLAUDE-local-template.md AGENTS.local.md`
+   (or `CLAUDE.local.md` for Claude Code)
 2. Edit to match your preferences
-3. Verify `CLAUDE.local.md` is in `.gitignore` (Claude Code reads it from the project root)
+3. Verify `AGENTS.local.md` is in `.gitignore`

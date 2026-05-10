@@ -1,7 +1,7 @@
 <p align="center">
-  <h1 align="center">Claude Code Game Studios</h1>
+  <h1 align="center">AI Game Studios</h1>
   <p align="center">
-    Turn a single Claude Code session into a full game development studio.
+    Turn an AI coding session into a full game development studio.
     <br />
     49 agents. 72 skills. One coordinated AI team.
   </p>
@@ -13,10 +13,27 @@
   <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-72-green" alt="72 Skills"></a>
   <a href=".claude/hooks"><img src="https://img.shields.io/badge/hooks-12-orange" alt="12 Hooks"></a>
   <a href=".claude/rules"><img src="https://img.shields.io/badge/rules-11-red" alt="11 Rules"></a>
-  <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/built%20for-Claude%20Code-f5f5f5?logo=anthropic" alt="Built for Claude Code"></a>
   <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20this%20project-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
   <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-Support%20this%20project-ea4aaa?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
 </p>
+
+---
+
+## Supported AI Tools
+
+This template works with any AI coding assistant:
+
+| Tool | Config File | Status |
+|------|-------------|--------|
+| **Claude Code** | `CLAUDE.md` + `.claude/` | Full support (hooks, skills, agents) |
+| **Cursor** | `.cursorrules` | Full support (agents, coordination rules) |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | Coding standards + collaboration protocol |
+| **Windsurf / Codeium** | `.windsurfrules` | Full support (agents, coordination rules) |
+| **Aider** | `.aider.conf.yml` | Coding standards + collaboration protocol |
+| **Any other AI tool** | `AGENTS.md` | Universal entry point |
+
+> **Universal config**: `AGENTS.md` is the tool-agnostic master configuration.
+> Tool-specific files point to it for the full setup.
 
 ---
 
@@ -24,7 +41,7 @@
 
 Building a game solo with AI is powerful — but a single chat session has no structure. No one stops you from hardcoding magic numbers, skipping design docs, or writing spaghetti code. There's no QA pass, no design review, no one asking "does this actually fit the game's vision?"
 
-**Claude Code Game Studios** solves this by giving your AI session the structure of a real studio. Instead of one general-purpose assistant, you get 49 specialized agents organized into a studio hierarchy — directors who guard the vision, department leads who own their domains, and specialists who do the hands-on work. Each agent has defined responsibilities, escalation paths, and quality gates.
+**AI Game Studios** solves this by giving your AI session the structure of a real studio. Instead of one general-purpose assistant, you get 49 specialized agents organized into a studio hierarchy — directors who guard the vision, department leads who own their domains, and specialists who do the hands-on work. Each agent has defined responsibilities, escalation paths, and quality gates.
 
 The result: you still make every decision, but now you have a team that asks the right questions, catches mistakes early, and keeps your project organized from first brainstorm to launch.
 
@@ -34,7 +51,6 @@ The result: you still make every decision, but now you have a team that asks the
 
 - [What's Included](#whats-included)
 - [Studio Hierarchy](#studio-hierarchy)
-- [Slash Commands](#slash-commands)
 - [Getting Started](#getting-started)
 - [Upgrading](#upgrading)
 - [Project Structure](#project-structure)
@@ -63,15 +79,15 @@ The result: you still make every decision, but now you have a team that asks the
 Agents are organized into three tiers, matching how real studios operate:
 
 ```
-Tier 1 — Directors (Opus)
+Tier 1 — Directors (Leader Model)
   creative-director    technical-director    producer
 
-Tier 2 — Department Leads (Sonnet)
+Tier 2 — Department Leads (Standard Model)
   game-designer        lead-programmer       art-director
   audio-director       narrative-director    qa-lead
   release-manager      localization-lead
 
-Tier 3 — Specialists (Sonnet/Haiku)
+Tier 3 — Specialists (Standard / Lightweight Model)
   gameplay-programmer  engine-programmer     ai-programmer
   network-programmer   tools-programmer      ui-programmer
   systems-designer     level-designer        economy-designer
@@ -92,52 +108,12 @@ The template includes agent sets for all three major engines. Use the set that m
 | **Unity** | `unity-specialist` | DOTS/ECS, Shaders/VFX, Addressables, UI Toolkit |
 | **Unreal Engine 5** | `unreal-specialist` | GAS, Blueprints, Replication, UMG/CommonUI |
 
-## Slash Commands
-
-Type `/` in Claude Code to access all 72 skills:
-
-**Onboarding & Navigation**
-`/start` `/help` `/project-stage-detect` `/setup-engine` `/adopt`
-
-**Game Design**
-`/brainstorm` `/map-systems` `/design-system` `/quick-design` `/review-all-gdds` `/propagate-design-change`
-
-**Art & Assets**
-`/art-bible` `/asset-spec` `/asset-audit`
-
-**UX & Interface Design**
-`/ux-design` `/ux-review`
-
-**Architecture**
-`/create-architecture` `/architecture-decision` `/architecture-review` `/create-control-manifest`
-
-**Stories & Sprints**
-`/create-epics` `/create-stories` `/dev-story` `/sprint-plan` `/sprint-status` `/story-readiness` `/story-done` `/estimate`
-
-**Reviews & Analysis**
-`/design-review` `/code-review` `/balance-check` `/content-audit` `/scope-check` `/perf-profile` `/tech-debt` `/gate-check` `/consistency-check`
-
-**QA & Testing**
-`/qa-plan` `/smoke-check` `/soak-test` `/regression-suite` `/test-setup` `/test-helpers` `/test-evidence-review` `/test-flakiness` `/skill-test` `/skill-improve`
-
-**Production**
-`/milestone-review` `/retrospective` `/bug-report` `/bug-triage` `/reverse-document` `/playtest-report`
-
-**Release**
-`/release-checklist` `/launch-checklist` `/changelog` `/patch-notes` `/hotfix`
-
-**Creative & Content**
-`/prototype` `/onboard` `/localize`
-
-**Team Orchestration** (coordinate multiple agents on a single feature)
-`/team-combat` `/team-narrative` `/team-ui` `/team-release` `/team-polish` `/team-audio` `/team-level` `/team-live-ops` `/team-qa`
-
 ## Getting Started
 
 ### Prerequisites
 
 - [Git](https://git-scm.com/)
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (`npm install -g @anthropic-ai/claude-code`)
+- An AI coding tool (Claude Code, Cursor, Windsurf, Copilot, Aider, etc.)
 - **Recommended**: [jq](https://jqlang.github.io/jq/) (for hook validation) and Python 3 (for JSON validation)
 
 All hooks fail gracefully if optional tools are missing — nothing breaks, you just lose validation.
@@ -150,18 +126,21 @@ All hooks fail gracefully if optional tools are missing — nothing breaks, you 
    cd my-game
    ```
 
-2. **Open Claude Code** and start a session:
-   ```bash
-   claude
-   ```
+2. **Open your AI tool** and start a session. The tool will read its config file:
+   - **Claude Code**: `claude` (reads `CLAUDE.md`)
+   - **Cursor**: Open the project (reads `.cursorrules`)
+   - **Copilot**: Open in VS Code (reads `.github/copilot-instructions.md`)
+   - **Windsurf**: Open the project (reads `.windsurfrules`)
+   - **Aider**: `aider` (reads `.aider.conf.yml`)
+   - **Other**: Point your tool to `AGENTS.md`
 
-3. **Run `/start`** — the system asks where you are (no idea, vague concept,
-   clear design, existing work) and guides you to the right workflow. No assumptions.
+3. **Start designing** — the system guides you through the right workflow:
+   - **No idea yet**: Start brainstorming your game concept
+   - **Vague concept**: Design systems and choose an engine
+   - **Clear design**: Set up architecture and start building
+   - **Existing project**: Detect your stage and continue
 
-   Or jump directly to a specific skill if you already know what you need:
-   - `/brainstorm` — explore game ideas from scratch
-   - `/setup-engine godot 4.6` — configure your engine if you already know
-   - `/project-stage-detect` — analyze an existing project
+   If using Claude Code, run `/start` for guided onboarding.
 
 ## Upgrading
 
@@ -172,9 +151,14 @@ versions, and which files are safe to overwrite vs. which need a manual merge.
 ## Project Structure
 
 ```
-CLAUDE.md                           # Master configuration
+AGENTS.md                           # Universal configuration (all AI tools)
+CLAUDE.md                           # Claude Code entry point
+.cursorrules                        # Cursor entry point
+.windsurfrules                      # Windsurf entry point
+.github/copilot-instructions.md     # GitHub Copilot entry point
+.aider.conf.yml                     # Aider entry point
 .claude/
-  settings.json                     # Hooks, permissions, safety rules
+  settings.json                     # Hooks, permissions, safety rules (Claude Code)
   agents/                           # 49 agent definitions (markdown + YAML frontmatter)
   skills/                           # 72 slash commands (subdirectory per skill)
   hooks/                            # 12 hook scripts (bash, cross-platform)
@@ -217,32 +201,45 @@ This is **not** an auto-pilot system. Every agent follows a strict collaboration
 
 You stay in control. The agents provide structure and expertise, not autonomy.
 
-### Automated Safety
+### Model Tier Assignment
 
-**Hooks** run automatically on every session:
+Skills and agents are assigned to model tiers based on task complexity:
+
+| Tier | Role | When to use |
+|------|------|-------------|
+| **Lightweight** | Fast, efficient model | Read-only status checks, formatting, simple lookups |
+| **Standard** | Balanced model | Implementation, design authoring, analysis — default for most work |
+| **Leader** | Most capable model | Multi-document synthesis, high-stakes decisions, cross-system review |
+
+When using Claude Code specifically, these map to Haiku, Sonnet, and Opus respectively.
+For other AI tools, simply assign your available models to the appropriate tier.
+
+### Automated Safety (Claude Code)
+
+**Hooks** run automatically on every session (Claude Code only):
 
 | Hook | Trigger | What It Does |
 |------|---------|--------------|
-| `validate-commit.sh` | PreToolUse (Bash) | Checks for hardcoded values, TODO format, JSON validity, design doc sections — exits early if the command is not `git commit` |
-| `validate-push.sh` | PreToolUse (Bash) | Warns on pushes to protected branches — exits early if the command is not `git push` |
-| `validate-assets.sh` | PostToolUse (Write/Edit) | Validates naming conventions and JSON structure — exits early if the file is not in `assets/` |
+| `validate-commit.sh` | PreToolUse (Bash) | Checks for hardcoded values, TODO format, JSON validity, design doc sections |
+| `validate-push.sh` | PreToolUse (Bash) | Warns on pushes to protected branches |
+| `validate-assets.sh` | PostToolUse (Write/Edit) | Validates naming conventions and JSON structure |
 | `session-start.sh` | Session open | Shows current branch and recent commits for orientation |
-| `detect-gaps.sh` | Session open | Detects fresh projects (suggests `/start`) and missing design docs when code or prototypes exist |
+| `detect-gaps.sh` | Session open | Detects fresh projects and missing design docs |
 | `pre-compact.sh` | Before compaction | Preserves session progress notes |
-| `post-compact.sh` | After compaction | Reminds Claude to restore session state from `active.md` |
+| `post-compact.sh` | After compaction | Reminds to restore session state from `active.md` |
 | `notify.sh` | Notification event | Shows Windows toast notification via PowerShell |
-| `session-stop.sh` | Session close | Archives `active.md` to session log and records git activity |
-| `log-agent.sh` | Agent spawned | Audit trail start — logs subagent invocation |
-| `log-agent-stop.sh` | Agent stops | Audit trail stop — completes subagent record |
-| `validate-skill-change.sh` | PostToolUse (Write/Edit) | Advises running `/skill-test` after any `.claude/skills/` change |
+| `session-stop.sh` | Session close | Archives `active.md` to session log |
+| `log-agent.sh` | Agent spawned | Audit trail start |
+| `log-agent-stop.sh` | Agent stops | Audit trail stop |
+| `validate-skill-change.sh` | PostToolUse (Write/Edit) | Advises running `/skill-test` after skill changes |
 
-> **Note**: `validate-commit.sh`, `validate-assets.sh`, and `validate-skill-change.sh` fire on every Bash/Write tool call and exit immediately (exit 0) when the command or file path is not relevant. This is normal hook behavior — not a performance concern.
-
-**Permission rules** in `settings.json` auto-allow safe operations (git status, test runs) and block dangerous ones (force push, `rm -rf`, reading `.env` files).
+> **Note**: Hooks are Claude Code-specific. Other AI tools get the same agent
+> coordination and coding standards through their config files, but without
+> automated hook execution.
 
 ### Path-Scoped Rules
 
-Coding standards are automatically enforced based on file location:
+Coding standards are automatically enforced based on file location (Claude Code):
 
 | Path | Enforces |
 |------|----------|
@@ -275,7 +272,7 @@ This is a **template**, not a locked framework. Everything is meant to be custom
 - **Add rules** — create new path-scoped rules for your project's directory structure
 - **Tune hooks** — adjust validation strictness, add new checks
 - **Pick your engine** — use the Godot, Unity, or Unreal agent set (or none)
-- **Set review intensity** — `full` (all director gates), `lean` (phase gates only), or `solo` (none). Set during `/start` or edit `production/review-mode.txt`. Override per-run with `--review solo` on any skill.
+- **Set review intensity** — `full` (all director gates), `lean` (phase gates only), or `solo` (none)
 
 ## Platform Support
 
@@ -290,7 +287,7 @@ Tested on **Windows 10** with Git Bash. All hooks use POSIX-compatible patterns 
 
 ## Supporting This Project
 
-Claude Code Game Studios is free and open source. If it saves you time or helps you ship your game, consider supporting continued development:
+AI Game Studios is free and open source. If it saves you time or helps you ship your game, consider supporting continued development:
 
 <p>
   <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
@@ -301,11 +298,11 @@ Claude Code Game Studios is free and open source. If it saves you time or helps 
 - **[Buy Me a Coffee](https://www.buymeacoffee.com/donchitos3)** — one-time support
 - **[GitHub Sponsors](https://github.com/sponsors/Donchitos)** — recurring support through GitHub
 
-Sponsorships help fund time spent maintaining skills, adding new agents, keeping up with Claude Code and engine API changes, and responding to community issues.
+Sponsorships help fund time spent maintaining skills, adding new agents, keeping up with engine API changes, and responding to community issues.
 
 ---
 
-*Built for Claude Code. Maintained and extended — contributions welcome via [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
+*Works with any AI coding tool. Contributions welcome via [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
 
 ## License
 

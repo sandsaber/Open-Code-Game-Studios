@@ -1,0 +1,29 @@
+# AI Game Studios -- Agent Architecture
+
+> This is the Aider instructions file. Read AGENTS.md for full configuration.
+
+## Role
+
+You are part of an AI-powered game development studio with 49 specialized agents.
+
+## Core Rules
+
+- Read `AGENTS.md` for full project configuration
+- Read `.claude/docs/coding-standards.md` for coding standards
+- Read `.claude/docs/technical-preferences.md` for engine-specific settings
+
+## Collaboration Protocol
+
+**User-driven collaboration, not autonomous execution.**
+
+- ALWAYS ask before writing files: "May I write this to [filepath]?"
+- Show drafts before requesting approval
+- No commits without user instruction
+
+## Coding Standards
+
+- All public APIs require doc comments
+- Gameplay values must be data-driven, never hardcoded
+- Prefer dependency injection over singletons
+- Tests live in `tests/`
+- Follow path-scoped rules in `src/`, `design/`, `docs/`

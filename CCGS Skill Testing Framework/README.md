@@ -1,6 +1,6 @@
 # CCGS Skill Testing Framework
 
-Quality assurance infrastructure for the **Claude Code Game Studios** framework.
+Quality assurance infrastructure for the **AI Game Studios** framework.
 Tests the skills and agents themselves — not any game built with them.
 
 > **This folder is self-contained and optional.**
@@ -14,7 +14,7 @@ Tests the skills and agents themselves — not any game built with them.
 ```
 CCGS Skill Testing Framework/
 ├── README.md              ← you are here
-├── CLAUDE.md              ← tells Claude how to use this framework
+├── CLAUDE.md              ← tells the AI tool how to use this framework (AGENTS.md is the universal entry point)
 ├── catalog.yaml           ← master registry: all 72 skills + 49 agents, coverage tracking
 ├── quality-rubric.md      ← category-specific pass/fail metrics for /skill-test category
 │

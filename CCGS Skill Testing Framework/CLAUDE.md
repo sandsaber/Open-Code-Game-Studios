@@ -1,7 +1,10 @@
-# CCGS Skill Testing Framework — Claude Instructions
+# CCGS Skill Testing Framework — AI Tool Instructions
 
-This folder is the quality assurance layer for the Claude Code Game Studios skill/agent
+This folder is the quality assurance layer for the AI Game Studios skill/agent
 framework. It is self-contained and separate from any game project.
+
+> **Note:** CLAUDE.md is read by Claude Code. AGENTS.md is the universal entry point
+> for any AI coding tool.
 
 ## Key files
 

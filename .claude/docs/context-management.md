@@ -1,6 +1,6 @@
 # Context Management
 
-Context is the most critical resource in a Claude Code session. Manage it actively.
+Context is the most critical resource in an AI tool session. Manage it actively.
 
 ## File-Backed State (Primary Strategy)
 
