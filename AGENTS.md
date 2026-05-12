@@ -67,7 +67,43 @@ Examples:
 - `/run-skill [name]` -> read `.claude/skills/[name]/SKILL.md`
 
 If a skill references Claude-only tools such as `AskUserQuestion`, replace them
-with a concise plain-text question and wait for the user's decision.
+with a concise plain-text question and wait for the user's decision. The full
+mapping table is below — every Claude-specific tool name that appears in any
+`allowed-tools` field MUST have an entry here.
+
+## Universal Tool Mapping
+
+The following tool names appear in skill `allowed-tools` declarations. The
+left column is the canonical (Claude Code) name. Other AI tools should
+substitute the equivalent in the right column. The linter
+(`tools/lint-skills.py`) enforces that every tool referenced in any skill is
+either in the universal set OR present in this mapping.
+
+### Universal tools (every major AI tool has an equivalent)
+
+| Canonical name | Meaning |
+|----------------|---------|
+| `Read` | Read a file from the filesystem. |
+| `Write` | Create or overwrite a file. |
+| `Edit` | Make a targeted edit inside an existing file. |
+| `Glob` | List files matching a path pattern. |
+| `Grep` | Search file contents by regex/pattern. |
+| `Bash` | Run a shell command. |
+| `WebFetch` | Fetch the contents of a URL. |
+| `WebSearch` | Perform a web search and return summarized results. |
+
+### Claude-specific tools (require explicit emulation in other tools)
+
+| Canonical name | Meaning | Emulation in other tools |
+|----------------|---------|--------------------------|
+| `AskUserQuestion` | Present 2–4 labeled options to the user and wait for a selection. | Ask the question as plain text, list the options inline, wait for the user's reply. |
+| `Task` | Spawn a subagent of a given type to handle a delegated task. | Read the referenced agent's `.claude/agents/<name>.md`, emulate its role yourself, summarize findings before moving on. Do not claim a subagent was spawned. |
+| `TodoWrite` | Maintain an internal task tracker visible to the user. | Maintain the task list in your own working notes; surface it in conversation when the user asks for status. |
+
+When adding a new tool to any skill's `allowed-tools`, either confirm it is
+universal (and add it to the universal table) or add a row to the
+Claude-specific table with explicit emulation guidance. The linter will fail
+the build if a skill references a name that is in neither table.
 
 ## Universal Agent Routing
 

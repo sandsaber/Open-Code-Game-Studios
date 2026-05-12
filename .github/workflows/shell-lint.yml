@@ -1,0 +1,43 @@
+name: Shell Hook Lint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".claude/hooks/**"
+      - "tools/**.sh"
+      - ".github/workflows/shell-lint.yml"
+  pull_request:
+    paths:
+      - ".claude/hooks/**"
+      - "tools/**.sh"
+      - ".github/workflows/shell-lint.yml"
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # shellcheck is pre-installed on ubuntu-latest runners.
+      - name: Verify shellcheck available
+        run: shellcheck --version
+
+      # Lint all hook scripts. severity=warning skips style-only findings
+      # (SC2034 unused vars in placeholder hooks, etc.) but catches real bugs
+      # like the wrong JSON field name fixed in commit 666e0fc.
+      - name: Run shellcheck on .claude/hooks/
+        run: shellcheck --severity=warning --shell=bash .claude/hooks/*.sh
+
+      - name: Run shellcheck on tools/ shell scripts
+        run: |
+          shopt -s nullglob
+          files=(tools/*.sh)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No shell scripts in tools/ — nothing to lint."
+            exit 0
+          fi
+          shellcheck --severity=warning --shell=bash "${files[@]}"

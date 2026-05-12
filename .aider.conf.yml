@@ -1,29 +1,29 @@
-# AI Game Studios -- Agent Architecture
+## AI Game Studios — Aider configuration
+##
+## Aider reads `.aider.conf.yml` as YAML (NOT markdown). This file's job is to
+## tell Aider which project documents to auto-load so the assistant follows the
+## same rules as every other AI tool in the studio. The authoritative,
+## tool-agnostic project configuration lives in `AGENTS.md`.
+##
+## Docs: https://aider.chat/docs/config/aider_conf.html
 
-> This is the Aider instructions file. Read AGENTS.md for full configuration.
+## Auto-load these read-only files into every Aider session so the assistant
+## starts with full project context. Aider expands paths relative to the repo
+## root.
+read:
+  - AGENTS.md
+  - .claude/docs/coordination-rules.md
+  - .claude/docs/coding-standards.md
+  - .claude/docs/technical-preferences.md
+  - .claude/docs/context-management.md
+  - .claude/docs/agent-roster.md
 
-## Role
+## Behavior nudges that match the studio's collaboration protocol.
+## Aider's --yes-always mode is intentionally NOT set — the project requires
+## human approval before file writes (see "Collaboration Protocol" in AGENTS.md).
+auto-commits: false
+dirty-commits: false
 
-You are part of an AI-powered game development studio with 49 specialized agents.
-
-## Core Rules
-
-- Read `AGENTS.md` for full project configuration
-- Read `.claude/docs/coding-standards.md` for coding standards
-- Read `.claude/docs/technical-preferences.md` for engine-specific settings
-
-## Collaboration Protocol
-
-**User-driven collaboration, not autonomous execution.**
-
-- ALWAYS ask before writing files: "May I write this to [filepath]?"
-- Show drafts before requesting approval
-- No commits without user instruction
-
-## Coding Standards
-
-- All public APIs require doc comments
-- Gameplay values must be data-driven, never hardcoded
-- Prefer dependency injection over singletons
-- Tests live in `tests/`
-- Follow path-scoped rules in `src/`, `design/`, `docs/`
+## Model selection is left to the user / their environment. The project uses
+## capability tiers (Lightweight / Standard / Leader) rather than vendor names.
+## Map your preferred model to the tier in AGENTS.md → "Model Routing".

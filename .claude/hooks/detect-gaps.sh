@@ -7,6 +7,20 @@
 # Exit on error for debugging (but don't fail the session)
 set +e
 
+# --- Framework-development mode detection ---
+# When this hook runs inside the AI Game Studios framework repo itself
+# (not in a project derived from it), all the "fresh project" signals are
+# expected to be empty and the /start prompt is noise. The two markers below
+# only exist in the framework repo and are deleted (or never copied) in
+# downstream projects.
+if [ -d "skill-testing-framework" ] && [ -f "UPGRADING.md" ]; then
+  echo "=== AI Game Studios Framework Development Mode ==="
+  echo "Detected framework repo markers (skill-testing-framework/, UPGRADING.md)."
+  echo "Skipping project-gap detection. Run /skill-test or /skill-improve to work on the framework."
+  echo "==================================="
+  exit 0
+fi
+
 echo "=== Checking for Documentation Gaps ==="
 
 # --- Check 0: Fresh project detection (suggests /start) ---

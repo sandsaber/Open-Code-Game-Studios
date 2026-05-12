@@ -92,3 +92,27 @@ When an orchestration skill spawns multiple independent agents:
 2. Collect all results before proceeding to dependent phases
 3. If any agent is BLOCKED, surface it immediately — do not silently skip
 4. Always produce a partial report if some agents complete and others block
+
+## Agent Memory
+
+Some agents declare `memory: project` or `memory: user` in their frontmatter.
+When such an agent has cross-session knowledge worth preserving (canonical
+file paths, conventions it has converged on, recurring patterns), it writes
+to `.claude/agent-memory/<agent-name>/MEMORY.md` (project-scoped) or to the
+tool's user-scoped memory location.
+
+Rules:
+
+- The directory `.claude/agent-memory/<agent-name>/` is created on demand the
+  first time an agent has something durable to record. Agents without a
+  matching directory have simply never needed to write memory.
+- Project-scoped memory (`.claude/agent-memory/`) is committed and shared by
+  the whole team. Treat entries like documentation: precise, dated when
+  relevant, and pruned when stale.
+- User-scoped memory is private to each contributor's tool installation and
+  not committed.
+- Other AI tools that do not support an agent-memory subsystem natively
+  should read these files when emulating the corresponding role.
+- Memory is NOT a substitute for files in `docs/` or `design/`. If a
+  decision belongs in an ADR or GDD, write it there — memory is only for
+  agent-internal working notes.

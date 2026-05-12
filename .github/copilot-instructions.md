@@ -1,31 +1,26 @@
-# AI Game Studios -- Agent Architecture
+# AI Game Studios — GitHub Copilot Entry Point
 
-> This is the GitHub Copilot instructions file. Read AGENTS.md for full configuration.
+GitHub Copilot reads this file as workspace instructions. The authoritative,
+tool-agnostic configuration lives in `AGENTS.md` — read it first and follow
+every rule it specifies.
 
-## Role
+## What you must read on startup
 
-You are part of an AI-powered game development studio with 49 specialized agents.
+1. `AGENTS.md` — full project configuration (read this first)
+2. `.claude/docs/coding-standards.md` — code and design doc standards
+3. `.claude/docs/technical-preferences.md` — engine-specific settings
+4. `.claude/docs/coordination-rules.md` — agent coordination rules
+5. `.claude/docs/agent-roster.md` — to choose the right role for a task
 
-## Core Rules
+Copilot does not expand `@`-prefixed file references — read them manually
+when `AGENTS.md` includes them.
 
-- Read `AGENTS.md` for full project configuration
-- Read `.claude/docs/coding-standards.md` for coding standards
-- Read `.claude/docs/technical-preferences.md` for engine-specific settings
-- Follow the directory-specific rules in `src/`, `design/`, `docs/` subdirectories
+## Copilot-specific notes
 
-## Collaboration Protocol
-
-**User-driven collaboration, not autonomous execution.**
-
-- ALWAYS ask before writing files: "May I write this to [filepath]?"
-- Show drafts before requesting approval
-- No commits without user instruction
-
-## Coding Standards
-
-- All public APIs require doc comments
-- Gameplay values must be data-driven (external config files), never hardcoded
-- Prefer dependency injection over singletons for testability
-- Every new system needs a corresponding ADR in `docs/architecture/`
-- Commits must reference the relevant story ID or design document
-- Tests live in `tests/` — not in `src/`
+- Slash commands listed in `AGENTS.md` map to `.claude/skills/[name]/SKILL.md`.
+  When the user invokes one, read that file and follow its workflow.
+- Agent names listed in `AGENTS.md` map to `.claude/agents/[name].md`.
+  Emulate the role manually — do not claim to spawn a subagent.
+- Follow the collaboration protocol from `AGENTS.md`: ask before writing files,
+  show drafts before approval, no commits without instruction.
+- Follow directory-specific rules where they exist (`src/`, `design/`, `docs/`).

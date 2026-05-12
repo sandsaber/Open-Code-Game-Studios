@@ -1,57 +1,26 @@
-# AI Game Studios -- Game Studio Agent Architecture
+# AI Game Studios — Claude Code Entry Point
 
-Indie game development managed through coordinated AI subagents.
-Each agent owns a specific domain, enforcing separation of concerns and quality.
+This file exists because Claude Code auto-loads `CLAUDE.md`. The authoritative,
+tool-agnostic project configuration lives in `AGENTS.md` — read it before doing
+any work. Everything in this file is Claude-Code-specific.
 
-> This is the Claude Code entry point. For other AI tools, see `AGENTS.md`
-> (universal) or the tool-specific config files in the project root.
+@AGENTS.md
 
-## Technology Stack
+## Claude-Code-specific notes
 
-- **Engine**: [CHOOSE: Godot 4 / Unity / Unreal Engine 5]
-- **Language**: [CHOOSE: GDScript / C# / C++ / Blueprint]
-- **Version Control**: Git with trunk-based development
-- **Build System**: [SPECIFY after choosing engine]
-- **Asset Pipeline**: [SPECIFY after choosing engine]
+- `@`-prefixed paths above are auto-expanded by Claude Code — the referenced
+  files are loaded into context automatically. Other AI tools must read them
+  manually.
+- Slash commands map to `.claude/skills/[name]/SKILL.md`. Use them natively.
+- Hooks live in `.claude/hooks/`. The `SessionStart` hooks print a context
+  banner and detect documentation gaps; do not duplicate that work in chat.
+- Subagents are real (`Task` tool). Spawn them per the routing in
+  `.claude/docs/agent-roster.md`.
+- Status line script: `.claude/statusline.sh`.
 
-> **Note**: Engine-specialist agents exist for Godot, Unity, and Unreal with
-> dedicated sub-specialists. Use the set matching your engine.
+## Onboarding
 
-## Project Structure
-
-@.claude/docs/directory-structure.md
-
-## Engine Version Reference
-
-@docs/engine-reference/godot/VERSION.md
-
-## Technical Preferences
-
-@.claude/docs/technical-preferences.md
-
-## Coordination Rules
-
-@.claude/docs/coordination-rules.md
-
-## Collaboration Protocol
-
-**User-driven collaboration, not autonomous execution.**
-Every task follows: **Question -> Options -> Decision -> Draft -> Approval**
-
-- Agents MUST ask "May I write this to [filepath]?" before using Write/Edit tools
-- Agents MUST show drafts or summaries before requesting approval
-- Multi-file changes require explicit approval for the full changeset
-- No commits without user instruction
-
-See `docs/COLLABORATIVE-DESIGN-PRINCIPLE.md` for full protocol and examples.
-
-> **First session?** If the project has no engine configured and no game concept,
-> run `/start` to begin the guided onboarding flow.
-
-## Coding Standards
-
-@.claude/docs/coding-standards.md
-
-## Context Management
-
-@.claude/docs/context-management.md
+> **First session in a new game project?** If the engine is not configured and
+> no game concept exists, run `/start` for the guided onboarding flow. (This
+> does not apply to the framework repo itself — the `SessionStart` hook will
+> detect framework-development mode and skip the prompt.)

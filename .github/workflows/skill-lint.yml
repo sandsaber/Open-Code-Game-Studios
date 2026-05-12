@@ -1,0 +1,38 @@
+name: Skill & Agent Lint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".claude/skills/**"
+      - ".claude/agents/**"
+      - "skill-testing-framework/catalog.yaml"
+      - "tools/lint-skills.py"
+      - ".github/workflows/skill-lint.yml"
+  pull_request:
+    paths:
+      - ".claude/skills/**"
+      - ".claude/agents/**"
+      - "skill-testing-framework/catalog.yaml"
+      - "tools/lint-skills.py"
+      - ".github/workflows/skill-lint.yml"
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Static structural lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyYAML
+        run: pip install --quiet pyyaml
+
+      - name: Run linter
+        run: python3 tools/lint-skills.py
