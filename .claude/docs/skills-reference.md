@@ -1,6 +1,11 @@
 # Available Skills (Slash Commands)
 
-73 slash commands organized by phase. Type `/` in Claude Code to access any of them.
+73 portable workflow commands organized by phase.
+
+- **Claude Code**: type `/` to access them as native slash commands.
+- **OpenCode**: use `.opencode/commands/` or `/run-skill [name]`.
+- **Codex, Gemini, and other tools**: read `.claude/skills/[name]/SKILL.md`
+  and follow the workflow manually.
 
 ## Onboarding & Navigation
 

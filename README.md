@@ -34,8 +34,8 @@ tool-specific adapters point back to it.
 | Tool | Config File | Status |
 |------|-------------|--------|
 | **Claude Code** | `CLAUDE.md` + `.claude/` | Full support (hooks, skills, agents) |
-| **Codex CLI** | `AGENTS.md` | Universal config (agents, coordination rules) |
-| **Gemini CLI** | `AGENTS.md` | Universal config (agents, coordination rules) |
+| **Codex CLI** | `AGENTS.md` | Universal config with manual skill and agent routing |
+| **Gemini CLI** | `AGENTS.md` | Universal config with manual skill and agent routing |
 | **OpenCode CLI** | `opencode.json` + `.opencode/` + `AGENTS.md` | Adapter support (commands, model routing, universal rules) |
 | **Cursor** | `.cursorrules` | Full support (agents, coordination rules) |
 | **GitHub Copilot** | `.github/copilot-instructions.md` | Coding standards + collaboration protocol |
@@ -90,6 +90,11 @@ So the framework is split into two layers:
 This means the same project can move between tools without losing its process.
 If a tool supports richer features, it gets an adapter. If it does not, it can
 still read `AGENTS.md` and follow the same studio workflow.
+
+For tools without native slash commands, commands are still usable as workflow
+names. For example, `/token-optimize combat refactor` means: read
+`.claude/skills/token-optimize/SKILL.md` and run that workflow with `combat
+refactor` as the task argument.
 
 ## What This Gives You
 
@@ -191,8 +196,8 @@ All hooks fail gracefully if optional tools are missing — nothing breaks, you 
 
 2. **Open your AI tool** and start a session. The tool will read its config file:
    - **Claude Code**: `claude` (reads `CLAUDE.md`)
-   - **Codex CLI**: `codex` (reads `AGENTS.md`)
-   - **Gemini CLI**: `gemini` (point it to `AGENTS.md`)
+   - **Codex CLI**: `codex` (reads `AGENTS.md`; route skills by reading `.claude/skills/[name]/SKILL.md`)
+   - **Gemini CLI**: `gemini` (point it to `AGENTS.md`; route skills by reading `.claude/skills/[name]/SKILL.md`)
    - **OpenCode CLI**: `opencode` (reads `opencode.json`, `.opencode/commands/`, and `AGENTS.md`)
    - **Cursor**: Open the project (reads `.cursorrules`)
    - **Copilot**: Open in VS Code (reads `.github/copilot-instructions.md`)

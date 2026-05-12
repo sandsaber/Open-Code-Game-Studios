@@ -30,6 +30,60 @@ Each agent owns a specific domain, enforcing separation of concerns and quality.
 
 @.claude/docs/coordination-rules.md
 
+## Universal Reference Loading
+
+Lines beginning with `@` are file references. AI tools that do not expand these
+references automatically MUST read the referenced file before relying on that
+section.
+
+Required startup references:
+
+- `.claude/docs/directory-structure.md`
+- `.claude/docs/technical-preferences.md`
+- `.claude/docs/coordination-rules.md`
+- `.claude/docs/coding-standards.md`
+- `.claude/docs/context-management.md`
+
+Read additional referenced files only when relevant to the current task.
+
+## Universal Skill Routing
+
+Slash commands are portable workflow names, not only Claude Code commands.
+If the current AI tool does not provide native slash-command support, route them
+manually:
+
+1. Convert `/skill-name [arguments]` to `.claude/skills/skill-name/SKILL.md`.
+2. Read that `SKILL.md`.
+3. Follow its workflow using the current tool's available file, shell, and edit
+   capabilities.
+4. Preserve the collaboration protocol: show drafts or summaries and ask before
+   writing files.
+
+Examples:
+
+- `/start` -> `.claude/skills/start/SKILL.md`
+- `/help` -> `.claude/skills/help/SKILL.md`
+- `/token-optimize [task]` -> `.claude/skills/token-optimize/SKILL.md`
+- `/run-skill [name]` -> read `.claude/skills/[name]/SKILL.md`
+
+If a skill references Claude-only tools such as `AskUserQuestion`, replace them
+with a concise plain-text question and wait for the user's decision.
+
+## Universal Agent Routing
+
+Agent names are portable roles. If the current AI tool does not provide native
+subagent support, emulate the role manually:
+
+1. Read `.claude/docs/agent-roster.md` to choose the right agent.
+2. Read `.claude/agents/[agent-name].md`.
+3. Apply that agent's domain rules, escalation path, and output format.
+4. For multi-agent workflows, run each role sequentially unless the current tool
+   supports parallel subagents.
+5. Summarize each role's findings before moving to the next role.
+
+Do not claim that a subagent was spawned unless the tool actually supports
+subagent execution.
+
 ## Model Routing
 
 This project does not require specific vendor model names. It uses capability
