@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    ".claude/docs/context-management.md",
+    ".claude/docs/coordination-rules.md",
+    ".claude/docs/coding-standards.md"
+  ],
+  "mcp": {},
+  "plugin": []
+}

@@ -78,6 +78,7 @@ Ask yourself: "What department would handle this in a real studio?"
 | `/start` | First-time onboarding — asks where you are, guides you to the right workflow |
 | `/help` | Context-aware "what do I do next?" — reads your current phase and artifacts |
 | `/project-stage-detect` | Analyze project state, detect stage, identify gaps |
+| `/token-optimize` | Plan a token-efficient context loading strategy before large tasks |
 | `/setup-engine` | Configure engine + version, populate reference docs |
 | `/adopt` | Brownfield audit and migration plan for existing projects |
 | `/brainstorm` | Guided game concept ideation from scratch |
@@ -268,7 +269,7 @@ AGENTS.md                          -- Universal configuration (all AI tools)
 .claude/
   settings.json                    -- Claude Code hooks and project settings
   agents/                          -- 48 agent definitions (YAML frontmatter)
-  skills/                          -- 68 slash command definitions (YAML frontmatter)
+  skills/                          -- 73 slash command definitions (YAML frontmatter)
   hooks/                           -- 12 hook scripts (.sh) wired by settings.json
   rules/                           -- 11 path-specific rule files
   docs/

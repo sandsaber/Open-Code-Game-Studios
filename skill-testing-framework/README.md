@@ -1,21 +1,21 @@
-# CCGS Skill Testing Framework
+# AI Game Studios Framework Testing
 
 Quality assurance infrastructure for the **AI Game Studios** framework.
 Tests the skills and agents themselves — not any game built with them.
 
 > **This folder is self-contained and optional.**
-> Game developers using CCGS don't need it. To remove it entirely:
-> `rm -rf "CCGS Skill Testing Framework"` — nothing in `.claude/` depends on it.
+> Game developers using AI Game Studios don't need it. To remove it entirely:
+> `rm -rf "skill-testing-framework"` — nothing in `.claude/` depends on it.
 
 ---
 
 ## What's in here
 
 ```
-CCGS Skill Testing Framework/
+skill-testing-framework/
 ├── README.md              ← you are here
 ├── CLAUDE.md              ← tells the AI tool how to use this framework (AGENTS.md is the universal entry point)
-├── catalog.yaml           ← master registry: all 72 skills + 49 agents, coverage tracking
+├── catalog.yaml           ← master registry: all 73 skills + 49 agents, coverage tracking
 ├── quality-rubric.md      ← category-specific pass/fail metrics for /skill-test category
 │
 ├── skills/                ← behavioral spec files for skills (one per skill)
@@ -56,7 +56,7 @@ All testing is driven by two skills already in the framework:
 
 ```
 /skill-test static [skill-name]     # Check one skill (7 checks)
-/skill-test static all              # Check all 72 skills
+/skill-test static all              # Check all 73 skills
 ```
 
 ### Run a behavioral spec test
@@ -142,7 +142,7 @@ All testing is driven by two skills already in the framework:
 This folder has no hooks into the main project. To remove:
 
 ```bash
-rm -rf "CCGS Skill Testing Framework"
+rm -rf "skill-testing-framework"
 ```
 
 The skills `/skill-test` and `/skill-improve` will still function — they'll simply

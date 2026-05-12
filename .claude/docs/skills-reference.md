@@ -1,6 +1,6 @@
 # Available Skills (Slash Commands)
 
-68 slash commands organized by phase. Type `/` in Claude Code to access any of them.
+73 slash commands organized by phase. Type `/` in Claude Code to access any of them.
 
 ## Onboarding & Navigation
 
@@ -9,6 +9,7 @@
 | `/start` | First-time onboarding — asks where you are, then guides you to the right workflow |
 | `/help` | Context-aware "what do I do next?" — reads current stage and surfaces the required next step |
 | `/project-stage-detect` | Full project audit — detect phase, identify existence gaps, recommend next steps |
+| `/token-optimize` | Build a token-efficient read plan, context budget, and compaction strategy for a task |
 | `/setup-engine` | Configure engine + version, detect knowledge gaps, populate version-aware reference docs |
 | `/adopt` | Brownfield format audit — checks internal structure of existing GDDs/ADRs/stories, produces migration plan |
 

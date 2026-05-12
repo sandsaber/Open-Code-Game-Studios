@@ -85,3 +85,16 @@
 | Scene / prefab / level files | [TO BE CONFIGURED] |
 | Native extension / plugin files | [TO BE CONFIGURED] |
 | General architecture review | Primary |
+
+## Engine MCP Integration
+
+<!-- Optional. Configure only if the project uses an MCP server to inspect or control the engine editor. -->
+<!-- See docs/mcp/engine-mcp.md for recommended Unity, Godot, and Unreal MCP options. -->
+
+- **MCP Enabled**: [TO BE CONFIGURED — Yes / No]
+- **MCP Server**: [TO BE CONFIGURED — e.g., CoplayDev/unity-mcp, Coding-Solo/godot-mcp, godot-mcp-pro, chongdashu/unreal-mcp]
+- **Transport**: [TO BE CONFIGURED — HTTP / stdio / WebSocket bridge / CLI]
+- **Local Endpoint / Port**: [TO BE CONFIGURED — do not commit machine-specific secrets]
+- **Allowed Tool Categories**: [TO BE CONFIGURED — e.g., read-only inspection, run tests, scene edits]
+- **Approval Required For**: Editor mutations, asset imports, scene saves, builds, destructive operations
+- **Routing Notes**: [TO BE CONFIGURED]

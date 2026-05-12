@@ -119,7 +119,7 @@ None. `/skill-test` is a meta-utility skill. No director gates apply.
 ### Case 4: Audit Mode — Coverage Table of All Skills and Agents
 
 **Fixture:**
-- `.claude/skills/` contains 72+ skill directories
+- `.claude/skills/` contains 73+ skill directories
 - `.claude/agents/` contains 49+ agent files
 - `tests/skills/` contains spec files for a subset of skills
 

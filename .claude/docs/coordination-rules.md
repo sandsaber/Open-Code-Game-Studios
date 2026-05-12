@@ -14,7 +14,9 @@
 
 ## Model Tier Assignment
 
-Skills and agents are assigned to model tiers based on task complexity:
+Skills and agents are assigned to capability tiers based on task complexity, not
+on a specific vendor's model lineup. The tier names are portable routing labels:
+map them to whatever models are available in the current AI tool.
 
 | Tier | Role | When to use |
 |------|------|-------------|
@@ -22,11 +24,27 @@ Skills and agents are assigned to model tiers based on task complexity:
 | **Standard** | Balanced model | Implementation, design authoring, analysis of individual systems — default for most work |
 | **Leader** | Most capable model | Multi-document synthesis, high-stakes phase gate verdicts, cross-system holistic review |
 
-> **Tool-specific mapping:** When using Claude Code, Lightweight = Haiku, Standard = Sonnet, Leader = Opus.
-> For other AI tools, assign your available models to the appropriate tier based on capability.
+Concrete model names in tool-specific files are adapter defaults only. For
+example, Claude Code can map Lightweight = Haiku, Standard = Sonnet, and
+Leader = Opus. OpenAI, Gemini, local models, or future providers should map
+their available models to the same three tiers by capability, context window,
+latency, cost, and reliability.
+
+Recommended mapping rules:
+
+- Use **Lightweight** for deterministic, low-risk tasks where speed and cost
+  matter more than reasoning depth.
+- Use **Standard** for normal production work that requires coherent reasoning
+  but does not need broad synthesis.
+- Use **Leader** when mistakes are expensive, the task spans many documents or
+  systems, or the output becomes a binding project decision.
+- If a provider has only one usable model, map it to **Standard** and manually
+  escalate critical work to the strongest available configuration.
+- If a provider has more than three useful models, map extra models to the
+  nearest tier rather than adding new project-wide tier names.
 
 Skills with `model: lightweight`: `/help`, `/sprint-status`, `/story-readiness`, `/scope-check`,
-`/project-stage-detect`, `/changelog`, `/patch-notes`, `/onboard`
+`/project-stage-detect`, `/token-optimize`, `/changelog`, `/patch-notes`, `/onboard`
 
 Skills with `model: leader`: `/review-all-gdds`, `/architecture-review`, `/gate-check`
 

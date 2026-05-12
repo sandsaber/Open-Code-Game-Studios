@@ -69,6 +69,63 @@ This keeps the context window holding only the *current* section's discussion
 - Medium (implement feature): ~8k tokens
 - Heavy (multi-system refactor): ~15k tokens
 
+## Token Optimization Policy
+
+Token optimization is a workflow constraint, not a provider-specific feature.
+Different AI tools expose different token counters, so use a practical approach:
+minimize loaded context, use file and line counts as a proxy, and preserve
+decisions in files instead of chat history.
+
+### Staged Context Loading
+
+1. **Index first**: read `AGENTS.md`, relevant manifests, registries, catalogs,
+   status files, and search results before opening large source or design files.
+2. **Target second**: use `rg`, `rg --files`, file globs, and headings to identify
+   the smallest set of files that can answer the current question.
+3. **Full read last**: read complete files only when exact wording, structure, or
+   implementation details are required.
+4. **Reference, don't paste**: cite file paths and line numbers instead of copying
+   long blocks into the conversation.
+5. **Persist decisions**: once a decision is made, write it to the appropriate
+   project file after approval so future sessions can read the file instead of
+   replaying the conversation.
+
+### Token Risk Signals
+
+Treat a task as token-sensitive when any of these are true:
+
+- The task touches 10+ files or 3+ subsystems.
+- A required file is longer than ~400 lines.
+- The task requires comparing many GDDs, ADRs, stories, or agent definitions.
+- The conversation already contains multiple drafts, corrections, or rejected paths.
+- The next step would require spawning multiple subagents or reading generated logs.
+
+### Optimization Techniques
+
+- Use `/token-optimize [task]` before heavy reviews, multi-system refactors, or
+  unfamiliar-code exploration.
+- Ask subagents for concise findings with file paths, verdicts, and only the
+  minimal supporting evidence.
+- Summarize completed phases into `production/session-state/active.md` before
+  moving to the next phase.
+- Prefer structured summaries, checklists, and tables over pasted source content.
+- Compact at natural boundaries and explicitly state which files now contain the
+  durable record.
+
+### Optimized Output Shape
+
+Long-running skills and agents should return:
+
+- Current task and verdict
+- Files read and why
+- Decisions made
+- Files modified or proposed
+- Open questions
+- Next minimal context to load
+
+This keeps downstream work actionable without forcing later agents to reconstruct
+the full conversation.
+
 ## Subagent Delegation
 
 Use subagents for research and exploration to keep the main session clean.
