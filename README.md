@@ -13,8 +13,6 @@
   <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-73-green" alt="73 Skills"></a>
   <a href=".claude/hooks"><img src="https://img.shields.io/badge/hooks-12-orange" alt="12 Hooks"></a>
   <a href=".claude/rules"><img src="https://img.shields.io/badge/rules-11-red" alt="11 Rules"></a>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20this%20project-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-Support%20this%20project-ea4aaa?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
 </p>
 
 <p align="center">
@@ -324,24 +322,29 @@ Tested on **Windows 10** with Git Bash. All hooks use POSIX-compatible patterns 
 
 ---
 
-## Supporting This Project
+## Credits & Original Author
 
-AI Game Studios is free and open source. If it saves you time or helps you ship your game, consider supporting continued development:
+This repository is a **fork** of [AI Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
+by [**Donchitos**](https://github.com/Donchitos), who built the original
+49-agent / 73-skill / 12-hook framework. The work in this fork (universal
+tool adapters, additional CI, framework hardening) sits on top of that
+foundation.
+
+If the original framework saved you time, you can thank Donchitos directly:
 
 <p>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
+  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Donchitos%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
   &nbsp;
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
+  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/Sponsor%20Donchitos-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
 </p>
 
-- **[Buy Me a Coffee](https://www.buymeacoffee.com/donchitos3)** — one-time support
-- **[GitHub Sponsors](https://github.com/sponsors/Donchitos)** — recurring support through GitHub
-
-Sponsorships help fund time spent maintaining skills, adding new agents, keeping up with engine API changes, and responding to community issues.
+- **[Buy Me a Coffee — Donchitos](https://www.buymeacoffee.com/donchitos3)** — one-time support for the original author
+- **[GitHub Sponsors — Donchitos](https://github.com/sponsors/Donchitos)** — recurring support for the original author
 
 ---
 
-*Works with any AI coding tool. Contributions welcome via [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
+*Works with any AI coding tool. The original project's community
+discussions live at the [upstream repo](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
 
 ## License
 
