@@ -3,7 +3,7 @@
   <p align="center">
     Turn any AI coding tool into a coordinated game development studio.
     <br />
-    49 agents. 73 skills. One coordinated AI team.
+    49 agents · 73 skills · one shared process.
   </p>
 </p>
 
@@ -21,316 +21,224 @@
 
 ---
 
+## What this is
+
+AI coding tools are good at writing code, less good at running a whole game
+project. A real game needs design decisions, technical constraints, QA,
+production planning, engine-specific knowledge, asset pipelines, and a way
+to keep all of that consistent across many sessions.
+
+**AI Game Studios** is a template that gives your AI tool the structure of a
+real studio: directors, department leads, specialists, engine experts, QA,
+production, and operations. **You** stay in charge — the framework just
+makes sure the right specialist asks the right question at the right
+checkpoint.
+
+The same project can move between AI tools without losing its process.
+`AGENTS.md` is the universal source of truth; every tool reads it through
+its own adapter.
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/sandsaber/Claude-Code-Game-Studios.git my-game
+cd my-game
+```
+
+Open the project in your AI tool — each tool finds its own entry point:
+
+| Tool | Opens | Run |
+|------|-------|-----|
+| Claude Code | `CLAUDE.md` | `claude` |
+| Codex CLI | `AGENTS.md` | `codex` |
+| Gemini CLI | `AGENTS.md` | `gemini` |
+| OpenCode CLI | `opencode.json` + `AGENTS.md` | `opencode` |
+| Cursor | `.cursorrules` | Open the folder |
+| Windsurf | `.windsurfrules` | Open the folder |
+| GitHub Copilot | `.github/copilot-instructions.md` | Open in VS Code |
+| Aider | `.aider.conf.yml` | `aider` |
+| Any other tool | `AGENTS.md` | Point it at the file |
+
+Then start designing. If you're using Claude Code, type `/start` for guided
+onboarding. For any other tool, ask: *"I want to start a new game project —
+walk me through the onboarding from `.claude/skills/start/SKILL.md`."*
+
+> **Prerequisites:** Git, plus an AI coding tool. Optional but recommended:
+> [`jq`](https://jqlang.github.io/jq/) and Python 3 (used by hook
+> validation; hooks degrade gracefully without them).
+
+---
+
 ## Supported AI Tools
 
-This project is built around one simple idea: the game development workflow
-should not be locked to one AI vendor or one CLI.
+| Tool | Adapter | Notes |
+|------|---------|-------|
+| Claude Code | `CLAUDE.md` + `.claude/` | Full support: hooks, slash skills, subagents |
+| Codex CLI | `AGENTS.md` | Universal config; manual skill/agent routing |
+| Gemini CLI | `AGENTS.md` | Universal config; manual skill/agent routing |
+| OpenCode CLI | `opencode.json` + `.opencode/` | Native commands route into shared skills |
+| Cursor | `.cursorrules` | Agents + coordination rules |
+| GitHub Copilot | `.github/copilot-instructions.md` | Coding standards + collaboration protocol |
+| Windsurf / Codeium | `.windsurfrules` | Agents + coordination rules |
+| Aider | `.aider.conf.yml` | Auto-loads `AGENTS.md` via `read:` |
+| Anything else | `AGENTS.md` | Universal entry point |
 
-Use the tool you like. `AGENTS.md` is the universal source of truth, and
-tool-specific adapters point back to it.
-
-| Tool | Config File | Status |
-|------|-------------|--------|
-| **Claude Code** | `CLAUDE.md` + `.claude/` | Full support (hooks, skills, agents) |
-| **Codex CLI** | `AGENTS.md` | Universal config with manual skill and agent routing |
-| **Gemini CLI** | `AGENTS.md` | Universal config with manual skill and agent routing |
-| **OpenCode CLI** | `opencode.json` + `.opencode/` + `AGENTS.md` | Adapter support (commands, model routing, universal rules) |
-| **Cursor** | `.cursorrules` | Full support (agents, coordination rules) |
-| **GitHub Copilot** | `.github/copilot-instructions.md` | Coding standards + collaboration protocol |
-| **Windsurf / Codeium** | `.windsurfrules` | Full support (agents, coordination rules) |
-| **Aider** | `.aider.conf.yml` | Coding standards + collaboration protocol |
-| **Any other AI tool** | `AGENTS.md` | Universal entry point |
-
-> **Universal config**: `AGENTS.md` is the tool-agnostic master configuration.
-> Tool-specific files point to it for the full setup.
-
----
-
-## Why This Exists
-
-AI coding tools are powerful, but game development needs more than a fast code
-assistant. A real game project needs design decisions, technical constraints,
-QA, production planning, engine-specific knowledge, asset pipelines, release
-checks, and a way to keep all of that consistent over many sessions.
-
-Most AI setups start as one chat window. That works for quick edits, but it
-breaks down when the project grows:
-
-- Design choices drift because nothing guards the vision.
-- Code gets written before the system is designed.
-- Tests, accessibility, localization, and release work happen too late.
-- Context gets too large, and important decisions vanish into old chat history.
-- Switching tools means rewriting the same instructions again.
-
-**AI Game Studios** solves that by giving your AI tool the structure of a real
-studio. Instead of one general-purpose assistant, you get 49 specialized agents
-organized into a studio hierarchy: directors, department leads, specialists,
-engine experts, QA, production, release, and operations.
-
-The user still makes the decisions. The framework provides the process: the
-right questions, the right specialist, the right document, the right checkpoint,
-and the right quality gate.
-
-## Why It Works Across Tools
-
-Different AI tools have different strengths. Claude Code has strong project
-hooks and slash-command ergonomics. Codex, Gemini CLI, OpenCode, Cursor,
-Copilot, Windsurf, and Aider each have their own workflows. Locking the studio
-architecture to only one of them would make the project less useful.
-
-So the framework is split into two layers:
-
-| Layer | Purpose |
-|-------|---------|
-| `AGENTS.md` | Universal studio rules, collaboration protocol, model routing, token optimization |
-| Tool adapters | Small entry points for each tool: `CLAUDE.md`, `opencode.json`, `.cursorrules`, `.windsurfrules`, Copilot instructions, Aider config |
-
-This means the same project can move between tools without losing its process.
-If a tool supports richer features, it gets an adapter. If it does not, it can
-still read `AGENTS.md` and follow the same studio workflow.
-
-For tools without native slash commands, commands are still usable as workflow
-names. For example, `/token-optimize combat refactor` means: read
-`.claude/skills/token-optimize/SKILL.md` and run that workflow with `combat
-refactor` as the task argument.
-
-## What This Gives You
-
-- A repeatable game development pipeline from concept to release
-- Specialized agents for design, programming, art, audio, narrative, QA, and production
-- Engine-aware guidance for Godot, Unity, and Unreal Engine
-- Portable model tiers instead of hardcoded vendor model names
-- Token optimization rules for long sessions and large projects
-- Optional OpenCode commands and engine MCP setup examples
-- A collaboration protocol that keeps the user in control
-
----
-
-## Table of Contents
-
-- [Supported AI Tools](#supported-ai-tools)
-- [Why This Exists](#why-this-exists)
-- [Why It Works Across Tools](#why-it-works-across-tools)
-- [What This Gives You](#what-this-gives-you)
-- [What's Included](#whats-included)
-- [Studio Hierarchy](#studio-hierarchy)
-- [Getting Started](#getting-started)
-- [Upgrading](#upgrading)
-- [Project Structure](#project-structure)
-- [Framework Testing](#framework-testing)
-- [How It Works](#how-it-works)
-- [OpenCode Adapter](#opencode-adapter)
-- [Engine MCP](#engine-mcp)
-- [Design Philosophy](#design-philosophy)
-- [Customization](#customization)
-- [Platform Support](#platform-support)
-- [Community](#community)
-- [Supporting This Project](#supporting-this-project)
-- [License](#license)
+Slash commands work even on tools without native command support — they map
+1:1 to `.claude/skills/<name>/SKILL.md`. For example, `/token-optimize
+combat` means: *read `.claude/skills/token-optimize/SKILL.md` and run that
+workflow with `combat` as the argument.*
 
 ---
 
 ## What's Included
 
-| Category | Count | Description |
-|----------|-------|-------------|
-| **Agents** | 49 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
-| **Skills** | 73 | Slash commands for every workflow phase (`/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
-| **Hooks** | 12 | Automated validation on commits, pushes, asset changes, session lifecycle, agent audit trail, and gap detection |
-| **Rules** | 11 | Path-scoped coding standards enforced when editing gameplay, engine, AI, UI, network code, and more |
-| **Templates** | 39 | Document templates for GDDs, UX specs, ADRs, sprint plans, HUD design, accessibility, and more |
+| Category | Count | Purpose |
+|----------|-------|---------|
+| Agents | 49 | Specialists across design, programming, art, audio, narrative, QA, production |
+| Skills | 73 | Slash commands for every workflow phase (`/start`, `/design-system`, `/dev-story`, `/story-done`, …) |
+| Hooks | 12 | Auto-validation on commit, push, asset write, session lifecycle (Claude Code only) |
+| Rules | 11 | Path-scoped coding standards for `src/`, `design/`, `tests/`, etc |
+| Templates | 39 | GDDs, ADRs, sprint plans, HUD specs, accessibility checklists, and more |
 
-## Studio Hierarchy
+### The studio
 
-Agents are organized into three tiers, matching how real studios operate:
+Agents are organized into three tiers — the higher the tier, the heavier the
+model and the broader the scope:
 
-```
-Tier 1 — Directors (Leader Model)
-  creative-director    technical-director    producer
+- **Tier 1 — Directors** (`creative-director`, `technical-director`,
+  `producer`) — vision, architecture, scheduling.
+- **Tier 2 — Department Leads** (`game-designer`, `lead-programmer`,
+  `art-director`, `audio-director`, `narrative-director`, `qa-lead`,
+  `release-manager`, `localization-lead`).
+- **Tier 3 — Specialists** (gameplay/engine/AI/network/tools/UI programmers,
+  systems/level/economy/UX designers, technical artist, sound designer,
+  writer, world-builder, performance/security/devops/analytics engineers,
+  QA tester, accessibility specialist, live-ops, community, prototyper).
 
-Tier 2 — Department Leads (Standard Model)
-  game-designer        lead-programmer       art-director
-  audio-director       narrative-director    qa-lead
-  release-manager      localization-lead
+Plus engine-specific sub-specialists you can swap in based on your stack:
 
-Tier 3 — Specialists (Standard / Lightweight Model)
-  gameplay-programmer  engine-programmer     ai-programmer
-  network-programmer   tools-programmer      ui-programmer
-  systems-designer     level-designer        economy-designer
-  technical-artist     sound-designer        writer
-  world-builder        ux-designer           prototyper
-  performance-analyst  devops-engineer       analytics-engineer
-  security-engineer    qa-tester             accessibility-specialist
-  live-ops-designer    community-manager
-```
+| Engine | Lead | Sub-specialists |
+|--------|------|-----------------|
+| Godot 4 | `godot-specialist` | GDScript, Shaders, GDExtension |
+| Unity | `unity-specialist` | DOTS/ECS, Shaders/VFX, Addressables, UI Toolkit |
+| Unreal Engine 5 | `unreal-specialist` | GAS, Blueprints, Replication, UMG/CommonUI |
 
-### Engine Specialists
+Full roster: [`.claude/docs/agent-roster.md`](.claude/docs/agent-roster.md).
 
-The template includes agent sets for all three major engines. Use the set that matches your project:
-
-| Engine | Lead Agent | Sub-Specialists |
-|--------|-----------|-----------------|
-| **Godot 4** | `godot-specialist` | GDScript, Shaders, GDExtension |
-| **Unity** | `unity-specialist` | DOTS/ECS, Shaders/VFX, Addressables, UI Toolkit |
-| **Unreal Engine 5** | `unreal-specialist` | GAS, Blueprints, Replication, UMG/CommonUI |
-
-## Getting Started
-
-### Prerequisites
-
-- [Git](https://git-scm.com/)
-- An AI coding tool (Claude Code, Codex CLI, Gemini CLI, OpenCode CLI, Cursor, Windsurf, Copilot, Aider, etc.)
-- **Recommended**: [jq](https://jqlang.github.io/jq/) (for hook validation) and Python 3 (for JSON validation)
-
-All hooks fail gracefully if optional tools are missing — nothing breaks, you just lose validation.
-
-### Setup
-
-1. **Clone or use as template**:
-   ```bash
-   git clone https://github.com/Donchitos/Claude-Code-Game-Studios.git my-game
-   cd my-game
-   ```
-
-2. **Open your AI tool** and start a session. The tool will read its config file:
-   - **Claude Code**: `claude` (reads `CLAUDE.md`)
-   - **Codex CLI**: `codex` (reads `AGENTS.md`; route skills by reading `.claude/skills/[name]/SKILL.md`)
-   - **Gemini CLI**: `gemini` (point it to `AGENTS.md`; route skills by reading `.claude/skills/[name]/SKILL.md`)
-   - **OpenCode CLI**: `opencode` (reads `opencode.json`, `.opencode/commands/`, and `AGENTS.md`)
-   - **Cursor**: Open the project (reads `.cursorrules`)
-   - **Copilot**: Open in VS Code (reads `.github/copilot-instructions.md`)
-   - **Windsurf**: Open the project (reads `.windsurfrules`)
-   - **Aider**: `aider` (reads `.aider.conf.yml`)
-   - **Other**: Point your tool to `AGENTS.md`
-
-3. **Start designing** — the system guides you through the right workflow:
-   - **No idea yet**: Start brainstorming your game concept
-   - **Vague concept**: Design systems and choose an engine
-   - **Clear design**: Set up architecture and start building
-   - **Existing project**: Detect your stage and continue
-
-   If using Claude Code, run `/start` for guided onboarding.
-
-## Upgrading
-
-Already using an older version of this template? See [UPGRADING.md](UPGRADING.md)
-for step-by-step migration instructions, a breakdown of what changed between
-versions, and which files are safe to overwrite vs. which need a manual merge.
-
-## Project Structure
-
-```
-AGENTS.md                           # Universal configuration (all AI tools)
-CLAUDE.md                           # Claude Code entry point
-opencode.json                       # OpenCode project config
-.opencode/                          # OpenCode adapter: commands and model routing
-.cursorrules                        # Cursor entry point
-.windsurfrules                      # Windsurf entry point
-.github/copilot-instructions.md     # GitHub Copilot entry point
-.aider.conf.yml                     # Aider entry point
-.claude/
-  settings.json                     # Hooks, permissions, safety rules (Claude Code)
-  agents/                           # 49 agent definitions (markdown + YAML frontmatter)
-  skills/                           # 73 slash commands (subdirectory per skill)
-  hooks/                            # 12 hook scripts (bash, cross-platform)
-  rules/                            # 11 path-scoped coding standards
-  statusline.sh                     # Status line script (context%, model, stage, epic breadcrumb)
-  docs/
-    workflow-catalog.yaml           # 7-phase pipeline definition (read by /help)
-    templates/                      # 39 document templates
-skill-testing-framework/            # Optional QA specs for the framework itself
-src/                                # Game source code
-assets/                             # Art, audio, VFX, shaders, data files
-design/                             # GDDs, narrative docs, level designs
-docs/                               # Technical documentation and ADRs
-tests/                              # Test suites (unit, integration, performance, playtest)
-tools/                              # Build and pipeline tools
-prototypes/                         # Throwaway prototypes (isolated from src/)
-production/                         # Sprint plans, milestones, release tracking
-```
-
-## Framework Testing
-
-`skill-testing-framework/` contains behavioral specs and catalog coverage for the
-AI Game Studios framework itself. It tests skills and agents, not the game you
-build with the template.
-
-Keep it if you plan to maintain, extend, or validate the framework. Game projects
-that only consume the template can ignore it.
-
-Useful commands:
-
-| Command | Purpose |
-|---------|---------|
-| `/skill-test static all` | Check structural compliance for all skills |
-| `/skill-test spec [name]` | Evaluate one skill against its behavioral spec |
-| `/skill-test category [name]` | Evaluate one skill against the category rubric |
-| `/skill-test audit` | Show skill and agent coverage status |
-| `/skill-improve [name]` | Test, diagnose, propose a fix, and retest a skill |
+---
 
 ## How It Works
 
-The framework is built on five ideas:
+Five ideas hold the framework together:
 
-1. **Vertical delegation** — directors → leads → specialists, with conflict
-   escalation to the shared parent.
-2. **Collaborative, not autonomous** — every agent follows a strict
-   ask → propose options → wait for approval → draft → approve workflow.
-   Nothing is written without your sign-off.
-3. **Portable model routing** — skills and agents request Lightweight,
-   Standard, or Leader capability tiers, not vendor-specific model names.
-4. **Token budgets are explicit** — indexes and summaries before full files,
-   decisions persisted to disk, `/token-optimize` available for large tasks.
-5. **Path-scoped rules** — coding standards are enforced based on file
-   location (`src/gameplay/**`, `src/core/**`, `design/gdd/**`, etc).
+1. **Vertical delegation.** Directors delegate to leads, leads to
+   specialists. Conflicts escalate to the shared parent.
+2. **Collaborative, not autonomous.** Every agent follows
+   ask → propose options → wait for approval → draft → approve. Nothing is
+   written without your sign-off.
+3. **Portable model routing.** Skills request Lightweight / Standard /
+   Leader capability tiers — never a specific vendor model name. Map the
+   tiers to whatever your tool offers.
+4. **Token budgets are explicit.** Indexes and summaries before full files;
+   durable decisions written to disk; `/token-optimize` for heavy tasks.
+5. **Path-scoped rules.** Coding standards activate based on file location
+   (`src/gameplay/**`, `src/core/**`, `design/gdd/**`, `tests/**`, …).
 
-Full breakdown of each, plus the Claude-Code hook table, tool-specific adapter
-details (OpenCode, Cursor, Aider, etc.), and engine-MCP setup:
+Detailed walkthrough of each idea, the full Claude-Code hook table, OpenCode
+adapter, and engine-MCP setup live in
+[`docs/framework-architecture.md`](docs/framework-architecture.md).
 
-→ [docs/framework-architecture.md](docs/framework-architecture.md)
+---
 
-## Design Philosophy
+## Project Layout
 
-This template is grounded in professional game development practices:
+```
+AGENTS.md                          # Universal entry point (all AI tools)
+CLAUDE.md / .cursorrules / ...     # Thin per-tool adapters that read AGENTS.md
+.claude/
+  agents/                          # 49 agent definitions
+  skills/                          # 73 slash commands (one folder per skill)
+  hooks/                           # 12 hook scripts (Claude Code automation)
+  rules/                           # 11 path-scoped coding standards
+  docs/                            # Coordination rules, agent roster, templates
+  statusline.sh                    # Status line: context %, model, stage, focus
+skill-testing-framework/           # Optional QA layer for the framework itself
+src/  assets/  design/             # Your game lives here
+docs/  tests/  tools/              # Tech docs, ADRs, test suites, pipeline tools
+prototypes/  production/           # Throwaway prototypes / sprints / milestones
+```
 
-- **MDA Framework** — Mechanics, Dynamics, Aesthetics analysis for game design
-- **Self-Determination Theory** — Autonomy, Competence, Relatedness for player motivation
-- **Flow State Design** — Challenge-skill balance for player engagement
-- **Bartle Player Types** — Audience targeting and validation
-- **Verification-Driven Development** — Tests first, then implementation
+---
+
+## Framework Testing & CI
+
+`skill-testing-framework/` holds behavioral specs and catalog coverage for
+the framework's own skills and agents — you can ignore it if you're only
+consuming the template. To work on or extend the framework:
+
+| Command | What it does |
+|---------|--------------|
+| `/skill-test static all` | Structural compliance check across all skills |
+| `/skill-test spec <name>` | Evaluate a skill against its behavioral spec |
+| `/skill-test category <name>` | Evaluate against the category rubric |
+| `/skill-test audit` | Coverage report: which specs were last run, when, with what result |
+| `/skill-improve <name>` | Test → diagnose → propose fix → rewrite → retest loop |
+
+Static linting also runs in CI on every PR:
+
+- [`tools/lint-skills.py`](tools/lint-skills.py) — frontmatter, tool
+  mapping, catalog cross-check (`.github/workflows/skill-lint.yml`).
+- `shellcheck` on every hook script (`.github/workflows/shell-lint.yml`).
+
+---
 
 ## Customization
 
-This is a **template**, not a locked framework. Everything is meant to be customized:
+This is a template, not a locked framework. The agent set is per-project —
+delete what you don't need, add what you do. Common moves:
 
-- **Add/remove agents** — delete agent files you don't need, add new ones for your domains
-- **Edit agent prompts** — tune agent behavior, add project-specific knowledge
-- **Modify skills** — adjust workflows to match your team's process
-- **Add rules** — create new path-scoped rules for your project's directory structure
-- **Tune hooks** — adjust validation strictness, add new checks
-- **Pick your engine** — use the Godot, Unity, or Unreal agent set (or none)
-- **Set review intensity** — `full` (all director gates), `lean` (phase gates only), or `solo` (none)
+- Pick one engine set (Godot / Unity / Unreal) and remove the others.
+- Edit agent prompts to encode project-specific knowledge.
+- Add path-scoped rules in `.claude/rules/` for new directories.
+- Choose review intensity per skill: `full` (all director gates),
+  `lean` (phase gates only), or `solo` (no gates).
+
+---
 
 ## Platform Support
 
-Tested on **Windows 10** with Git Bash. All hooks use POSIX-compatible patterns (`grep -E`, not `grep -P`) and include fallbacks for missing tools. Works on macOS and Linux without modification.
+Developed and tested on Windows 10 with Git Bash; hooks use POSIX-compatible
+patterns (`grep -E`, not `grep -P`) and degrade gracefully when optional
+tools are missing. Works on macOS and Linux without modification.
 
-## Community
+---
 
-- **Discussions** — [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions) for questions, ideas, and showcasing what you've built
-- **Issues** — [Bug reports and feature requests](https://github.com/Donchitos/Claude-Code-Game-Studios/issues)
+## Further Reading
+
+- [`docs/framework-architecture.md`](docs/framework-architecture.md) — how
+  coordination, model routing, hooks, and tool adapters actually work.
+- [`docs/COLLABORATIVE-DESIGN-PRINCIPLE.md`](docs/COLLABORATIVE-DESIGN-PRINCIPLE.md)
+  — the protocol every agent follows, with examples.
+- [`docs/WORKFLOW-GUIDE.md`](docs/WORKFLOW-GUIDE.md) — full 7-phase
+  development pipeline from concept to release.
+- [`UPGRADING.md`](UPGRADING.md) — migration notes between framework
+  versions.
 
 ---
 
 ## Credits & Original Author
 
-This repository is a **fork** of [AI Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
-by [**Donchitos**](https://github.com/Donchitos), who built the original
+This repository is a **fork** of
+[AI Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) by
+[**Donchitos**](https://github.com/Donchitos), who built the original
 49-agent / 73-skill / 12-hook framework. The work in this fork (universal
 tool adapters, additional CI, framework hardening) sits on top of that
 foundation.
 
-If the original framework saved you time, you can thank Donchitos directly:
+If the original framework saved you time, the most direct way to support
+its continued development is to thank Donchitos:
 
 <p>
   <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Donchitos%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
@@ -338,14 +246,12 @@ If the original framework saved you time, you can thank Donchitos directly:
   <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/Sponsor%20Donchitos-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
 </p>
 
-- **[Buy Me a Coffee — Donchitos](https://www.buymeacoffee.com/donchitos3)** — one-time support for the original author
-- **[GitHub Sponsors — Donchitos](https://github.com/sponsors/Donchitos)** — recurring support for the original author
+Upstream community discussions live at the
+[original repo](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).
 
 ---
 
-*Works with any AI coding tool. The original project's community
-discussions live at the [upstream repo](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
-
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT. Original work © 2026 Donchitos; fork modifications © 2026 sandsaber.
+See [LICENSE](LICENSE) for the full text.
