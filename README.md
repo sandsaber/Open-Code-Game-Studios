@@ -43,7 +43,7 @@ its own adapter.
 ## Quick Start
 
 ```bash
-git clone https://github.com/sandsaber/Claude-Code-Game-Studios.git my-game
+git clone https://github.com/sandsaber/Open-Code-Game-Studios.git my-game
 cd my-game
 ```
 
